@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasRoles, HasFactory;
+    use HasRoles, HasFactory, HasApiTokens;
     public $table = 'users';
 
     public $fillable = [
@@ -23,7 +24,7 @@ class User extends Authenticatable
         'email' => 'string'
     ];
 
-
+    protected $hidden = ['password'];
     public static $request_array = [
         'search'
     ];

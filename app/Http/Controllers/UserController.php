@@ -6,8 +6,10 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends AppBaseController
 {
@@ -124,5 +126,12 @@ class UserController extends AppBaseController
         Flash::success('User deleted successfully.');
 
         return redirect(route('users.index'));
+    }
+
+    public function getCustomers()
+    {
+        return $this->userRepository->model()::applyFilters()->whereHas('roles', function ($query){
+            $query->where('name', '=', 'user');
+        })->select('id', 'name as text')->paginate(20);
     }
 }

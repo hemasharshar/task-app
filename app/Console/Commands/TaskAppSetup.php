@@ -31,6 +31,7 @@ class TaskAppSetup extends Command
         Artisan::call('config:clear');
         Artisan::call('migrate:fresh');
         Artisan::call('db:seed');
+        Artisan::call('passport:install');
         $this->info('Database migrated successfully ');
 
         $this->info('Seed admins');

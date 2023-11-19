@@ -30,4 +30,14 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('tasks', [App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
 
     Route::get('tasks/getUsers/{role}', [App\Http\Controllers\TaskController::class, 'getUsers'])->name('tasks.getUsers');
+
+
+    Route::get('getCustomers', [App\Http\Controllers\UserController::class, 'getCustomers'])->name('getCustomers');
+    Route::get('transactions/getData', [App\Http\Controllers\TransactionsController::class, 'getData'])->name('transactions.getData');
+    Route::post('transactions/export', [App\Http\Controllers\TransactionsController::class, 'exportTransactions'])->name('transactions.export');
+
+    Route::resource('transactions', App\Http\Controllers\TransactionsController::class);
+
+    Route::resource('payments-transactions', App\Http\Controllers\PaymentsTransactionsController::class);
+    Route::get('paymentsTransactions/getData', [App\Http\Controllers\PaymentsTransactionsController::class, 'getData'])->name('paymentsTransactions.getData');
 });

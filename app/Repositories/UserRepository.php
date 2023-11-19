@@ -24,6 +24,17 @@ class UserRepository extends BaseRepository
         return User::class;
     }
 
+    /**
+     * Get user by id.
+     *
+     * @param $id
+     * @return String
+     */
+    public function getById($id)
+    {
+        return $this->model()::find($id);
+    }
+
     public function getTopUsersTasks()
     {
         return $this->model()::whereHas('roles', function ($query){

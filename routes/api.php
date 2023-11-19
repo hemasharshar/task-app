@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'customer'], function () {
+    Route::post('/login', 'UsersAPIController@login');
+    Route::group(['middleware' => ['auth:api', 'role:user']], function () {
+        Route::get('transactions', 'UsersAPIController@getTransactions');
+    });
 });
